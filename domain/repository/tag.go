@@ -1,13 +1,20 @@
 package repository
 
 import (
-	"github.com/gin-gonic/gin"
 	"rest-api-endpoints/domain/entity"
 )
 
 type TagsRepository interface {
-	Fetch(c *gin.Context) (entity.Tags, error)
+	// Create part
 	Create(*entity.CreateTag) error
 
-	FetchByProduct(c *gin.Context) (entity.TagsByProduct, error)
+	// Fetch Read part
+	Fetch(accountID int64) (entity.Tags, error)
+	FetchByProduct(accountID int64) (entity.TagsByProduct, error)
+
+	// Update part
+	Update(*entity.CreateTag) error
+
+	// Delete part
+	Delete(*entity.CreateTag) error
 }

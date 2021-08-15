@@ -11,10 +11,10 @@ type Tag struct {
 }
 
 type CreateTag struct {
-	ID        int64     `json:"tagid" db:"tagid"`
-	TagName   string    `json:"tagname" db:"tagname"`
-	AccountID int64     `json:"accountid" db:"accountid"`
-	Created   time.Time `json:"created" db:"created"`
+	ID        int64  `json:"tagid" db:"tagid"`
+	TagName   string `json:"tagname" db:"tagname"`
+	AccountID int64  `json:"accountid" db:"accountid"`
+	ProductID int64  `json:"productid"`
 }
 
 type Tags []Tag
@@ -24,4 +24,3 @@ type ProductTags struct {
 	Tags []int64
 }
 type TagsByProduct []ProductTags
-

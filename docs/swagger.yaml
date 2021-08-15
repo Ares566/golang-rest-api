@@ -1,0 +1,555 @@
+basePath: /
+definitions:
+  entity.Account:
+    properties:
+      accountid:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
+    type: object
+  entity.CreateAccount:
+    properties:
+      accountid:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
+    type: object
+  entity.CreateNote:
+    properties:
+      accountid:
+        type: integer
+      productid:
+        type: integer
+      text:
+        type: string
+    type: object
+  entity.CreateTag:
+    properties:
+      accountid:
+        type: integer
+      productid:
+        type: integer
+      tagid:
+        type: integer
+      tagname:
+        type: string
+    type: object
+  entity.ProductTags:
+    properties:
+      nmID:
+        type: integer
+      tags:
+        items:
+          type: integer
+        type: array
+    type: object
+  entity.Tag:
+    properties:
+      accountid:
+        type: integer
+      created:
+        type: string
+      tagid:
+        type: integer
+      tagname:
+        type: string
+      updated:
+        type: string
+    type: object
+  response.SuccessResponse:
+    properties:
+      data:
+        type: object
+      error:
+        type: boolean
+      message:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Описание API
+  title: Swagger For REST API
+  version: "0.1"
+paths:
+  /accountinfo:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает Email пользователя
+      parameters:
+      - description: Account Id
+        in: query
+        name: accountid
+        required: true
+        type: integer
+      - default: Bearer <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Account'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Данные о пользователе по id
+      tags:
+      - Account
+  /alltags/:
+    get:
+      consumes:
+      - application/json
+      description: Tags by Account ID
+      parameters:
+      - description: Account ID
+        in: query
+        name: accountid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Tag'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Отображает все теги аккаунта
+      tags:
+      - Tags
+  /create:
+    post:
+      consumes:
+      - application/json
+      description: Создание пользователя
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateAccount'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Создание пользователя
+      tags:
+      - Account
+  /note:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление заметки
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateNote'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Удаление заметки
+      tags:
+      - Notes
+    post:
+      consumes:
+      - application/json
+      description: Создание заметки
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateNote'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Создание заметки
+      tags:
+      - Notes
+    put:
+      consumes:
+      - application/json
+      description: Обновление Заметки
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateNote'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Обновление Заметки
+      tags:
+      - Notes
+  /notes/:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает все Заметки аккаунта или заметку продукта
+      parameters:
+      - description: Account ID
+        in: query
+        name: accountid
+        required: true
+        type: integer
+      - description: Product aka Nm ID
+        in: query
+        name: productid
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Tag'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Возвращает Заметки
+      tags:
+      - Notes
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Возвращает JWT токе авторизации
+      parameters:
+      - description: Email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: Password
+        in: query
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.Tag'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Аторизация пользователя
+      tags:
+      - Account
+  /tag:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление тега
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Удаление тега
+      tags:
+      - Tags
+    post:
+      consumes:
+      - application/json
+      description: Создание тега
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Создание тега
+      tags:
+      - Tags
+    put:
+      consumes:
+      - application/json
+      description: Обновление тега
+      parameters:
+      - description: Тело запроса
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/entity.CreateTag'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Обновление тега
+      tags:
+      - Tags
+  /tagsbyproducts/:
+    get:
+      consumes:
+      - application/json
+      description: Tags by Account ID
+      parameters:
+      - description: Account ID
+        in: query
+        name: accountid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/entity.ProductTags'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+        "404":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+      summary: Возвращает все тегированные продукты аккаунта с соответствующими тегами
+      tags:
+      - Tags
+swagger: "2.0"

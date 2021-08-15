@@ -1,6 +1,6 @@
-# REST API boilerplate
+# REST API для тегов и заметок
 
-Tags: DDD, Postgresql, Golang, REST, GIN
+Микросервис собран по согласно DDD
 
 ---
 
